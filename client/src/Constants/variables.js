@@ -9,3 +9,5 @@ export const MOTTO_FAST = 'Release fast, iterate faster.';
 export const LINKEDIN = '';
 export const TWITTER = '';
 export const INSTAGRAM = '';
+
+export const API_URL = 'http://localhost:1337';

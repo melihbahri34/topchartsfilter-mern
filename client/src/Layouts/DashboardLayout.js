@@ -1,7 +1,7 @@
 import React from 'react';  
 import { Route } from 'react-router-dom';
 
-import SidebarApp from '../Components/SidebarApp';
+import SidebarApp from '../Components/Dashboard/SidebarApp';
 
 const Dashboard = ({ children, noNavbar, noFooter }) => (
     <div className="flex overflow-hidden">
