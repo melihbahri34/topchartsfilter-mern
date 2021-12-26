@@ -26,6 +26,8 @@ import NewReleases from './Dashboard/NewReleases';
 import TopPublishers from './Dashboard/TopPublishers';
 import AppDetail from './Dashboard/AppDetail';
 
+import Admin from './Dashboard/Admin';
+
 // legal
 import PrivacyPolicy from './Pages/Legal/PrivacyPolicy';
 import TermsOfService from './Pages/Legal/TermsOfService';
@@ -53,6 +55,8 @@ function App() {
           <DashboardLayout exact path={ROUTES.TOP_CHARTS} component={TopCharts}/>
           <DashboardLayout exact path={ROUTES.NEW_RELEASES} component={NewReleases}/>
           <DashboardLayout exact path={ROUTES.TOP_PUBLISHERS} component={TopPublishers}/>
+
+          <DashboardLayout exact path={ROUTES.ADMIN} component={Admin}/>
 
           <DashboardLayout exact path={'/top-charts/detail/:id?'} component={AppDetail}/>
 

@@ -15,6 +15,8 @@ export const TOP_PUBLISHERS = '/top-publishers';
 export const HYPERCASUAL = '/hyper-casual-top-charts';
 export const APP_DETAIL = '/top-charts/detail';
 
+export const ADMIN = '/admin';
+
 // legal
 export const PRIVACY = '/privacy-policy';
 export const TERMS = '/terms-of-service';

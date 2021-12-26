@@ -22,14 +22,34 @@ export default class NewReleases extends Component {
             this.setState({charts: true}) //After 1 second, set render to true
         }.bind(this), 1000)
 
+        /*
         axios.get('https://itunes.apple.com/us/rss/newapplications/limit=100/json')
         .then(response => {
-          
             this.setState({ charts: response.data.feed.entry });
           
             console.log(this.state.charts);
 
-            for (let i = 0; i < 100; i++) {
+            for (let i = 0; i < 100; i++) 
+            {
+                if(this.state.charts[i].category.attributes.label === "Games")
+                {
+                    this.state.apps.push( this.state.charts[i]) ;
+                }
+            }
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+        */
+
+        axios.get('http://localhost:3000/new-releases/')
+        .then(response => {
+            this.setState({ charts: response.data[0].data });
+
+            console.log(this.state.charts);
+
+            for (let i = 0; i < 100; i++) 
+            {
                 if(this.state.charts[i].category.attributes.label === "Games")
                 {
                     this.state.apps.push( this.state.charts[i]) ;

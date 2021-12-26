@@ -24,33 +24,41 @@ export default class TopCharts extends Component {
             this.setState({charts: true}) //After 1 second, set render to true
         }.bind(this), 1000)
 
+        /*
         axios.get('http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/ws/RSS/topfreeapplications/sf=143441/limit=200/genre=6014/json')
         .then(response => {
-          
             this.setState({ charts: response.data.feed.entry });
           
             console.log(this.state.charts);
 
-            for (let i = 0; i < 100; i++) {
-             this.state.apps.push( this.state.charts[i]) ;
+            for (let i = 0; i < 100; i++) 
+            {
+                this.state.apps.push( this.state.charts[i]) ;
             }
         })
         .catch((error) => {
           console.log(error);
         })
+        */
 
-        fetch("https://api.apptweak.com/ios/categories/7015/top.json?country=es&device=iphone&type=free", {
-          headers: {
-            "X-Apptweak-Key": `${'lTtZjtabVEK9k7vjB9szMTl3MXo'}`
-          }
-        })
-        .then(response => {
-            console.log(response);
-        })
+        axios.get('http://localhost:3000/top-charts/')
+			.then((res) => {
+				this.setState({ charts: res.data[0].data });
+          
+                console.log(this.state.charts);
+    
+                for (let i = 0; i < 100; i++) 
+                {
+                    this.state.apps.push( this.state.charts[i]) ;
+                }
+			})
+			.catch((err) => {
+				console.log(err);
+			});
     }
 
     render() {
-        const Test = ({charts}) => (
+        const ChartsList = ({charts}) => (
             <>
               {charts.map((chart,index) => (
                     <TopChartsCard 
@@ -154,7 +162,7 @@ export default class TopCharts extends Component {
             
                                 <tbody>
                                     
-                                    <Test charts={this.state.apps} />
+                                    <ChartsList charts={this.state.apps} />
 
                                 </tbody>
                                 
