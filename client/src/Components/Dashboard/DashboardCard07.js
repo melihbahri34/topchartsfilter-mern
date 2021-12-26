@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactPlayer from 'react-player';
 
-function DashboardCard07() {
+function DashboardCard07(props) {
   return (
     <div className="col-span-full xl:col-span-8 bg-white shadow-lg rounded-sm border border-gray-200">
       <header className="px-5 py-4 border-b border-gray-100">
@@ -17,7 +17,7 @@ function DashboardCard07() {
           </table>
 
           <ReactPlayer 
-            url='https://sensortower-ads.s3.amazonaws.com/91322a8fb381720ca6f28952b5759914.mp4'
+            url={props.videoUrl}
             playing="true" 
             loop="true" />
           

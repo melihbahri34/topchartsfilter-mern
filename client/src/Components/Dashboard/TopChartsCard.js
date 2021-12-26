@@ -16,6 +16,7 @@ const TopChartsCard = (props) => {
         localStorage.setItem("app_publisher", props.publisher);
         localStorage.setItem("app_image", props.image);
         localStorage.setItem("app_releaseDate", props.releaseDate);
+        localStorage.setItem("app_video", props.videoUrl);
   
         history.push(ROUTES.APP_DETAIL + '/' + props.name);
     }

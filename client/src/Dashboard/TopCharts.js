@@ -16,30 +16,12 @@ export default class TopCharts extends Component {
             apps: [],
             render: false,
         };
-
     }
 
     componentDidMount() {
         setTimeout(function() { //Start the timer
             this.setState({charts: true}) //After 1 second, set render to true
         }.bind(this), 1000)
-
-        /*
-        axios.get('http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/ws/RSS/topfreeapplications/sf=143441/limit=200/genre=6014/json')
-        .then(response => {
-            this.setState({ charts: response.data.feed.entry });
-          
-            console.log(this.state.charts);
-
-            for (let i = 0; i < 100; i++) 
-            {
-                this.state.apps.push( this.state.charts[i]) ;
-            }
-        })
-        .catch((error) => {
-          console.log(error);
-        })
-        */
 
         axios.get('http://localhost:3000/top-charts/')
 			.then((res) => {
@@ -51,6 +33,8 @@ export default class TopCharts extends Component {
                 {
                     this.state.apps.push( this.state.charts[i]) ;
                 }
+
+                this.setState({ render: true })
 			})
 			.catch((err) => {
 				console.log(err);
@@ -68,7 +52,8 @@ export default class TopCharts extends Component {
                         releaseDate={chart["im:releaseDate"].attributes.label}
                         image={chart["im:image"][2].label} 
                         url={chart.id.label} 
-                        score={"7/10"}>
+                        score={"7/10"}
+                        videoUrl={chart["appVideo"]}>
   
                     </TopChartsCard>
               ))}

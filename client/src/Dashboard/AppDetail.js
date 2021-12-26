@@ -12,6 +12,7 @@ function AppDetail(props) {
     const publisher = localStorage.getItem("app_publisher");
     const image = localStorage.getItem("app_image");
     const releaseDate = localStorage.getItem("app_releaseDate");
+    const videoUrl = localStorage.getItem("app_video");
 
     return(
         <div className="flex w-full h-screen overflow-hidden">
@@ -28,7 +29,7 @@ function AppDetail(props) {
                         {/* Cards */}
                         <div className="grid grid-cols-12 gap-6">
             
-                            {/* Doughnut chart (Top Countries) */}
+                            {/* Table Info */}
                             <DashboardCard06 
                             rank={rank}
                             name={name}
@@ -36,8 +37,8 @@ function AppDetail(props) {
                             releaseDate={releaseDate}
                             image={image} />
 
-                            {/* Table (Top Channels) */}
-                            <DashboardCard07 />
+                            {/* Table Video */}
+                            <DashboardCard07 videoUrl={videoUrl} />
                           
                         </div>
           

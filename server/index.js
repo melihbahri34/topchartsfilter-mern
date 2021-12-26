@@ -11,6 +11,9 @@ require('./db/db');
 
 const app = express();
 
+var bodyParser = require("body-parser");
+app.use(bodyParser.json({limit: '500kb'}));
+
 // image
 /*
 app.use(express.static(path.join(__dirname, '..', 'build')));
@@ -25,6 +28,13 @@ const cors = require('cors');
 app.use(cors());
 
 app.use(express.json());
+
+// image
+const path = require('path');
+// image
+require('dotenv').config();
+// image
+app.use('/images', express.static(path.join(__dirname, './images'))); // needed to display images from backend
 
 const cron = require('node-cron');
 let shell = require('shelljs');
@@ -86,7 +96,7 @@ const writeTopCharts = async () => {
 	try {
 		await TopCharts.create({
 			data: topChartsData,
-			date: (day + "." + month + "." + year),
+			date: (year + "-" + month + "-" + day),
 		})
 		// topChartsData.json({ status: 'ok' })
 	} catch (err) {
@@ -118,6 +128,25 @@ const writeNewReleases = async () => {
 		// newReleasesData.json({ status: 'error', error: 'Duplicate email' })
 	}
 };
+
+app.post('/api/top-charts/update', async (req, res) => {
+	try {
+		await TopCharts.update(
+			{ date: req.body.date },
+			{ 
+				$set: 
+				{ 
+					data: req.body.data
+			    }   
+		    }
+		)
+
+		return res.json({ status: 'ok' })
+	} catch (error) {
+		console.log(error)
+		res.json({ status: 'error', error: 'invalid date' })
+	}
+})
 
 // jsonwebtoken
 const jwt = require('jsonwebtoken');
