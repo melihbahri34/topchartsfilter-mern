@@ -103,7 +103,7 @@ const Admin = () => {
         <>
 			{render ? (
 				<div class="pt-16 mx-auto w-4/6 h-4/6">
-                  <div class="w-full p-6 m-auto bg-white rounded-md shadow-md dark:bg-gray-800">
+                  <div class="w-full p-6 m-auto bg-blue border border-green-600 rounded-md shadow-md dark:bg-gray-800">
                   
                     <section>
                         <h2 class="text-lg font-semibold text-gray-700 capitalize dark:text-white">Admin Panel</h2>
@@ -205,7 +205,7 @@ const Admin = () => {
                                 <input 
                                     type="submit" 
                                     value="Submit"
-                                    class="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">
+                                    class="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-green-600 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">
                                 </input>
                             </div>
     
