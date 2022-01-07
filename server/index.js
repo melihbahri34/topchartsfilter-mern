@@ -61,6 +61,7 @@ let newReleasesData = [];
 
 // Backup a database at 11:59 PM every day
 // minute, hour
+// 0 0 */23 * * * *
 cron.schedule("0 0 */23 * * *", function()
 {
 	console.log("Scheduler running...");
@@ -83,6 +84,8 @@ let year = date_ob.getFullYear();
 const getTopCharts = () => {
 	axios.get('http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/ws/RSS/topfreeapplications/sf=143441/limit=200/genre=6014/json')
 	    .then((res) => {
+			console.log(res.data);
+
 			topChartsData = res.data.feed.entry;
 
 			writeTopCharts();
@@ -96,7 +99,7 @@ const writeTopCharts = async () => {
 	try {
 		await TopCharts.create({
 			data: topChartsData,
-			date: (year + "-" + month + "-" + day),
+			date: (year + "-" + month + "-" + date)
 		})
 		// topChartsData.json({ status: 'ok' })
 	} catch (err) {
@@ -122,6 +125,7 @@ const writeNewReleases = async () => {
 	try {
 		await NewReleases.create({
 			data: newReleasesData,
+			date: (year + "-" + month + "-" + date)
 		})
 		// newReleasesData.json({ status: 'ok' })
 	} catch (err) {
@@ -146,7 +150,26 @@ app.post('/api/top-charts/update', async (req, res) => {
 		console.log(error)
 		res.json({ status: 'error', error: 'invalid date' })
 	}
-})
+});
+
+app.post('/api/new-releases/update', async (req, res) => {
+	try {
+		await NewReleases.update(
+			{ date: req.body.date },
+			{ 
+				$set: 
+				{ 
+					data: req.body.data
+			    }   
+		    }
+		)
+
+		return res.json({ status: 'ok' })
+	} catch (error) {
+		console.log(error)
+		res.json({ status: 'error', error: 'invalid date' })
+	}
+});
 
 // jsonwebtoken
 const jwt = require('jsonwebtoken');

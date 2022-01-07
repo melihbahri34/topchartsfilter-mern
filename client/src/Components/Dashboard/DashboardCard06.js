@@ -53,6 +53,15 @@ function DashboardCard06(props) {
         <div class="pl-4 pb-8">
             <div class="flex items-center">
                 <div class="flex items-center">
+                    <a class="mx-2">Is Hyper-Casual:</a>
+                    <a class="mx-2">{props.isHyperCasual}</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="pl-4 pb-8">
+            <div class="flex items-center">
+                <div class="flex items-center">
                     <a class="mx-2">Score:</a>
                     <a class="mx-2">X/X</a>
                 </div>

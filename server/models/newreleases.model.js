@@ -2,7 +2,8 @@ const mongoose = require('mongoose');
 
 const NewReleases = new mongoose.Schema(
 	{
-        data: { type: Object }
+        data: { type: Object },
+		date: { type: String }
 	},
 	{ collection: 'new-releases' }
 );

@@ -1,7 +1,9 @@
 import React, { useEffect, useState, useMemo } from 'react';
 
+//
 import axios from 'axios';
 
+// components
 import DashboardCard06 from '../Components/Dashboard/DashboardCard06';
 
 const Admin = () => {
@@ -13,6 +15,7 @@ const Admin = () => {
     const [appID, setAppID] = useState('');
 
     const [isHyperCasual, setIsHyperCasual] = useState(false);
+    const [isHyperCasualToAll, setIsHyperCasualToAll] = useState(false);
 
     const [newChart, setNewChart] = useState({
 		appName: '',
@@ -22,8 +25,12 @@ const Admin = () => {
         videoUrl: ''
 	});
 
+    const [whichCharts, setWhichCharts] = useState('');
+
     const getCharts = () => {
-        axios.get('http://localhost:3000/top-charts/')
+        if(whichCharts === "top-charts")
+        {
+            axios.get('http://localhost:3000/top-charts/')
 			.then((res) => { 
                 setCharts(res.data[0].data)
 
@@ -34,6 +41,21 @@ const Admin = () => {
 			.catch((err) => {
 				console.log(err);
 			});
+        }
+        else if(whichCharts === "new-releases")
+        {
+            axios.get('http://localhost:3000/new-releases/')
+			.then((res) => { 
+                setCharts(res.data[0].data)
+
+                setApps(charts);
+
+                setRender(true);
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+        }
     }
     
     const handleChange = (e) => {
@@ -58,20 +80,53 @@ const Admin = () => {
         var obj = apps[appIndex]; // newChart.appName.charAt(0)
         obj["isHyperCasual"] = isHyperCasual;
 
+        if(isHyperCasualToAll)
+        {
+            for (let i = 0; i < 100; i++) 
+            {
+                var obj = apps[i]; // newChart.appName.charAt(0)
+                obj["isHyperCasual"] = "false";
+            }
+        }
+
         console.log(apps);
 
-        await fetch('http://localhost:3000/api/top-charts/update', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify({
-                date: newChart.chartsDate,
-                data: apps
-			}),
-		}).then(
-            alert("okay")
-        );
+        if(whichCharts === "top-charts")
+        {
+            await fetch('http://localhost:3000/api/top-charts/update', {
+    			method: 'POST',
+    			headers: {
+    				'Content-Type': 'application/json'
+    			},
+    			body: JSON.stringify({
+                    date: newChart.chartsDate,
+                    data: apps
+    			}),
+    		}).then(
+                alert("okay")
+            );
+        }
+        else if(whichCharts === "new-releases")
+        {
+            await fetch('http://localhost:3000/api/new-releases/update', {
+    			method: 'POST',
+    			headers: {
+    				'Content-Type': 'application/json'
+    			},
+    			body: JSON.stringify({
+                    date: newChart.chartsDate,
+                    data: apps
+    			}),
+    		}).then(
+                alert("okay")
+            );
+        }
+	};
+
+    async function handleNext(e) {
+        e.preventDefault();
+
+        getCharts();
 	};
 
     useEffect(() => {
@@ -88,15 +143,12 @@ const Admin = () => {
         </>
     );
 
-    function toggleClass() {
-        if(!isHyperCasual)
-        {
-            setIsHyperCasual(true);
-        }
-        else if(isHyperCasual)
-        {
-            setIsHyperCasual(false);
-        }
+    function toggleClass(e) {
+        setIsHyperCasual(e.target.checked);
+    };
+
+    function toggleClass1(e) {
+        setIsHyperCasualToAll(e.target.checked);
     };
 
     return (
@@ -120,6 +172,9 @@ const Admin = () => {
                                         onChange={handleChange} 
                                         class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
                                     >    
+                                        <option>
+                                            { "none" }
+                                        </option>
                                         <Options charts={apps} />
                                     </select>
     
@@ -164,31 +219,32 @@ const Admin = () => {
                                 </div>
 
                                 <div>
-                                    <label class="text-gray-700 dark:text-gray-200">App Name</label>
-                                    <label class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">{newChart.appName.substring(newChart.appName.indexOf(" "))}</label>
-                                </div>
-
-                                <div>
-                                    <label class="text-gray-700 dark:text-gray-200">Charts Date</label>
-                                    <label class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">{newChart.chartsDate}</label>
-                                </div>
-
-                                <div>
                                     <label class="text-gray-700 dark:text-gray-200">App Video Name</label>
                                     <label class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">{newChart.appVideo.name}</label>
                                 </div>
 
                                 <div>
-                                    <label class="text-gray-700 dark:text-gray-200">App Rank</label>
-                                    <label class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">{newChart.appName.substr(0, newChart.appName.indexOf(' '))}</label>
+                                    <label class="text-gray-700 dark:text-gray-200">Is Hyper-Casual</label>
+
+                                    <div class="mb-3">
+                                        <div class="relative inline-block w-10 mr-2 align-middle select-none">
+                                            <input value={isHyperCasual} onChange={toggleClass} type="checkbox" name="toggle" id="Blue" class="checked:bg-blue-500 outline-none focus:outline-none right-4 checked:right-0 duration-200 ease-in absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer"/>
+                                            <label for="Blue" class="block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer">
+                                            </label>
+                                        </div>
+                                        <span class="text-gray-400 font-medium">
+                                            Yes
+                                        </span>
+                                    </div>
+
                                 </div>
 
                                 <div>
-                                    <label class="text-gray-700 dark:text-gray-200">Is Hyper-Casual</label>
+                                    <label class="text-gray-700 dark:text-gray-200">Write isHyperCasual to All</label>
 
-                                    <div class="mb-3" onClick={toggleClass}>
+                                    <div class="mb-3">
                                         <div class="relative inline-block w-10 mr-2 align-middle select-none">
-                                            <input type="checkbox" name="toggle" id="Blue" class="checked:bg-blue-500 outline-none focus:outline-none right-4 checked:right-0 duration-200 ease-in absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer"/>
+                                            <input value={isHyperCasualToAll} onChange={toggleClass1} type="checkbox" name="toggle1" id="Blue" class="checked:bg-blue-500 outline-none focus:outline-none right-4 checked:right-0 duration-200 ease-in absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer"/>
                                             <label for="Blue" class="block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer">
                                             </label>
                                         </div>
@@ -215,7 +271,46 @@ const Admin = () => {
                   </div>
                 </div>
 			) : (
-				'rendering...'
+                <div class="pt-16 mx-auto w-4/6 h-4/6">
+                  <div class="w-full p-6 m-auto bg-blue border border-green-600 rounded-md shadow-md dark:bg-gray-800">
+                  
+                    <section>
+                        <h2 class="text-lg font-semibold text-gray-700 capitalize dark:text-white">Admin Panel</h2>
+                        
+                        <form onSubmit={handleNext}>
+                            <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
+                                <div>
+                                    <label class="text-gray-700 dark:text-gray-200">Which Charts?</label>
+                                    
+                                    <select 
+                                        id="whichCharts" 
+                                        name="whichCharts"
+                                        value={whichCharts}
+                                        onChange={(e) => setWhichCharts(e.target.value)} 
+                                        class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+                                    >   
+                                        <option>{ "none" }</option> 
+                                        <option>{ "top-charts" }</option>
+                                        <option>{ "new-releases" }</option>
+                                    </select>
+    
+                                </div>
+                                
+                            </div>
+                
+                            <div class="flex justify-end mt-6">
+                                <input 
+                                    type="submit" 
+                                    value="Next"
+                                    class="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-green-600 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">
+                                </input>
+                            </div>
+    
+                        </form>
+                    </section>
+    
+                  </div>
+                </div>
 			)}
 
 		</>

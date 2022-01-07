@@ -13,7 +13,7 @@ export default class Hero1 extends Component {
                             <h1 class="text-3xl font-bold text-gray-800 dark:text-white md:text-4xl">Building Your Next Game with our Awesome services</h1>
                             <p class="mt-6 text-gray-500 dark:text-gray-300">{VARIABLES.MOTTO}</p>
                             <button
-                                class="px-6 py-2 mt-6 text-sm font-medium leading-5 text-center text-white capitalize bg-blue-600 rounded-lg hover:bg-blue-500 md:mx-0 md:w-auto focus:outline-none">
+                                class="animate-bounce px-6 py-2 mt-6 text-sm font-medium leading-5 text-center text-white capitalize bg-blue-600 rounded-lg hover:bg-blue-500 md:mx-0 md:w-auto focus:outline-none">
                                 Start 14-Day free trial
                             </button>
                             <p class="mt-3 text-sm text-gray-400 ">No credit card required</p>

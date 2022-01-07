@@ -13,6 +13,7 @@ function AppDetail(props) {
     const image = localStorage.getItem("app_image");
     const releaseDate = localStorage.getItem("app_releaseDate");
     const videoUrl = localStorage.getItem("app_video");
+    const isHyperCasual = localStorage.getItem("isHyperCasual");
 
     return(
         <div className="flex w-full h-screen overflow-hidden">
@@ -35,7 +36,8 @@ function AppDetail(props) {
                             name={name}
                             publisher={publisher} 
                             releaseDate={releaseDate}
-                            image={image} />
+                            image={image} 
+                            isHyperCasual={isHyperCasual} />
 
                             {/* Table Video */}
                             <DashboardCard07 videoUrl={videoUrl} />

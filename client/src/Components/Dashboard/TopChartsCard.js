@@ -17,6 +17,7 @@ const TopChartsCard = (props) => {
         localStorage.setItem("app_image", props.image);
         localStorage.setItem("app_releaseDate", props.releaseDate);
         localStorage.setItem("app_video", props.videoUrl);
+        localStorage.setItem("isHyperCasual", props.isHyperCasual);
   
         history.push(ROUTES.APP_DETAIL + '/' + props.name);
     }

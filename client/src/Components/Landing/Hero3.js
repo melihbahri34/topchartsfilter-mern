@@ -11,7 +11,9 @@ export default class Hero3 extends Component {
                                 <div class="lg:max-w-lg">
                                     <h1 class="text-2xl font-semibold text-gray-800 uppercase dark:text-white lg:text-3xl">Best Platform To Boost Your Business.</h1>
                                     <p class="mt-2 text-gray-600 dark:text-gray-400">Realtime app stores tracker. The newest games in App Store and Google Play from all over the World.</p>
-                                    <button class="w-full px-3 py-2 mt-6 text-xs font-medium text-white uppercase transition-colors duration-200 transform bg-blue-600 rounded-md lg:w-auto hover:bg-blue-500 focus:outline-none focus:bg-blue-500">GET STARTED</button>
+                                    <button class="duration-300 ease-in-out w-full px-3 py-2 mt-6 text-xs font-medium text-white uppercase transition-colors duration-200 transform bg-blue-600 rounded-md lg:w-auto hover:bg-blue-500 focus:outline-none focus:bg-blue-500 animate-bounce">
+                                        GET STARTED
+                                    </button>
                                 </div>
                             </div>
                     
