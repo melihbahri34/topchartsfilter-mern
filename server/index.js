@@ -292,3 +292,5 @@ app.use('/blogs', blogRouter);
 app.listen(3000, () => {
 	console.log('Server started on port: 3000');
 })
+
+// "dev": "nodemon index.js",
