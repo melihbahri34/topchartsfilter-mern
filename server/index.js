@@ -288,9 +288,50 @@ app.use('/new-releases', newreleasesRouter);
 const blogRouter = require('./routes/blog');
 app.use('/blogs', blogRouter);
 
+const https = require('https');
+const http = require('http');
+// const path = reqire('path');
+const fs = require('fs');
+
+app.use('/', (req, res, next) => {
+	res.send('👙 TopChartsFilter Server Is Working Good 👙');
+})
+
+// Listen both http & https ports
+const httpServer = http.createServer(app);
+httpServer.listen(80, () => {
+    console.log('HTTP Server running on port 80');
+});
+
+/*
+const https_options = {
+	ca: fs.readFileSync("ca_bundle.crt"),
+	key: fs.readFileSync("private.key"),
+	cert: fs.readFileSync("certificate.crt")
+};
+
+https.createServer(https_options, function (req, res) {
+	console.log('HTTPS Server running on port 3000');
+	res.writeHead(200);
+	res.end("Welcome to Node.js HTTPS Server");
+}).listen(3000)
+*/
+
+const httpsServer = https.createServer({
+	ca: fs.readFileSync("ca_bundle.crt"),
+	key: fs.readFileSync('private.key'),
+	cert: fs.readFileSync('certificate.crt'),
+}, app);
+
+httpsServer.listen(3000, () => {
+    console.log('HTTPS Server running on port 3000');
+});
+
 // listen
+/*
 app.listen(3000, () => {
 	console.log('Server started on port: 3000');
 })
+*/
 
 // "dev": "nodemon index.js",

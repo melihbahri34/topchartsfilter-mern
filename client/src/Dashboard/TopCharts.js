@@ -24,7 +24,7 @@ const TopCharts = () => {
         var milliseconds = date.getTime();
         setCurrentMilliseconds(milliseconds);
 
-        axios.get('http://localhost:3000/top-charts/')
+        axios.get('http://18.220.41.49:3000/top-charts') // http://localhost:3000/top-charts/ 
 			.then((res) => {
                 setCharts(res.data[0].data);
 

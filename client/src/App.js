@@ -33,6 +33,8 @@ import PrivacyPolicy from './Pages/Legal/PrivacyPolicy';
 import TermsOfService from './Pages/Legal/TermsOfService';
 import Imprint from './Pages/Legal/Imprint';
 
+import valid from './valid.txt';
+
 function App() {
   return (
     <React.Fragment>
@@ -60,10 +62,29 @@ function App() {
 
           <DashboardLayout exact path={'/top-charts/detail/:id?'} component={AppDetail}/>
 
+          <Route path="/.well-known/pki-validation/A0110C602AABE3BA6657D947CCCFF81B.txt" component={validation} />
+
         </Switch>
 
       </Router>
     </React.Fragment>
+  )
+}
+
+const validation = () => {
+    
+  return (  
+    <div>
+      <p>
+        5E37E79180BA00E650C07601F6594D1E7DC452D6A2E677F3DCC300F01EB84C74
+      </p>
+      <p>
+        comodoca.com
+      </p>
+      <p>
+        8eafe62a15c160b
+      </p>
+    </div>
   )
 }
 

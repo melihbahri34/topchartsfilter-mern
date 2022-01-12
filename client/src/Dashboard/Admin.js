@@ -30,7 +30,7 @@ const Admin = () => {
     const getCharts = () => {
         if(whichCharts === "top-charts")
         {
-            axios.get('http://localhost:3000/top-charts/')
+            axios.get('http://18.220.41.49:3000/top-charts/') // http://localhost:3000/top-charts/
 			.then((res) => { 
                 setCharts(res.data[0].data)
 
@@ -44,7 +44,7 @@ const Admin = () => {
         }
         else if(whichCharts === "new-releases")
         {
-            axios.get('http://localhost:3000/new-releases/')
+            axios.get('http://18.220.41.49:3000/new-releases/') // http://localhost:3000/new-releases/
 			.then((res) => { 
                 setCharts(res.data[0].data)
 
@@ -93,7 +93,7 @@ const Admin = () => {
 
         if(whichCharts === "top-charts")
         {
-            await fetch('http://localhost:3000/api/top-charts/update', {
+            await fetch('http://18.220.41.49:3000/api/top-charts/update', { // http://localhost:3000/api/top-charts/update
     			method: 'POST',
     			headers: {
     				'Content-Type': 'application/json'
@@ -108,7 +108,7 @@ const Admin = () => {
         }
         else if(whichCharts === "new-releases")
         {
-            await fetch('http://localhost:3000/api/new-releases/update', {
+            await fetch('http://18.220.41.49:3000/api/new-releases/update', {
     			method: 'POST',
     			headers: {
     				'Content-Type': 'application/json'

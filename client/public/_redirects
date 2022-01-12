@@ -1,0 +1,12 @@
+/*    /index.html   200 
+[[redirects]]
+  from = "https://topchartsfilter.com"
+  to = "https://www.topchartsfilter.com"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "http://topchartsfilter.com"
+  to = "http://www.topchartsfilter.com"
+  status = 301
+  force = true

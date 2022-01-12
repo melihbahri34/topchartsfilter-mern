@@ -21,7 +21,7 @@ export default class NewReleases extends Component {
             this.setState({charts: true}) //After 1 second, set render to true
         }.bind(this), 1000)
 
-        axios.get('http://localhost:3000/new-releases/') // http://localhost:3000/new-releases/
+        axios.get('http://18.220.41.49:3000/new-releases') // http://localhost:3000/new-releases/
         .then(response => {
             this.setState({ charts: response.data[0].data });
 
